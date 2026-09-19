@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Quotes CDN API documentation." />
+    <title>API docs — Quotes CDN</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="docs-page">
+    <div class="api-support">Using Quotes CDN? <a href="mailto:hello@quotescdn.dev">Say hello</a> and share what you build.</div>
+    <main class="api-main">
+      <div class="api-reference">
+        <article class="api-endpoint">
+          <div class="api-endpoint-copy">
+            <h1>Quote</h1>
+            <div class="api-route"><span class="api-method">GET</span><a data-origin-href="/api/quote">/api/quote</a><button class="api-copy" data-copy="/api/quote">Copy</button></div>
+            <p>Returns one anime quote. Add a query parameter to filter the result or use an index for an exact record.</p>
+            <h2>Query Parameters</h2>
+            <div class="api-params">
+              <div><strong>index</strong><span>number</span><p>Return the quote at an exact index.</p></div>
+              <div><strong>anime</strong><span>string</span><p>Match an anime title exactly.</p></div>
+              <div><strong>search</strong><span>string</span><p>Search the quote, character, or anime title.</p></div>
+            </div>
+          </div>
+          <pre class="api-code"><code>const result = await fetch(
+  <span data-origin-code="/api/quote?anime=Naruto&amp;seed=0">"/api/quote?anime=Naruto&amp;seed=0"</span>
+);
+
+console.log(await result.json());
+{
+  "index": 42,
+  "anime": "Naruto",
+  "character": "Pain"
+}</code></pre>
+        </article>
+
+        <article class="api-endpoint">
+          <div class="api-endpoint-copy">
+            <h1>Quote list</h1>
+            <div class="api-route"><span class="api-method">GET</span><a data-origin-href="/api/quotes">/api/quotes</a><button class="api-copy" data-copy="/api/quotes?search=power&amp;limit=10">Copy</button></div>
+            <p>Returns a filtered, paginated list of quote records from the local index.</p>
+            <h2>Query Parameters</h2>
+            <div class="api-params">
+              <div><strong>search</strong><span>string</span><p>Search across quote, character, and anime.</p></div>
+              <div><strong>limit</strong><span>number</span><p>Number of records to return, up to 100.</p></div>
+              <div><strong>offset</strong><span>number</span><p>Number of matching records to skip.</p></div>
+            </div>
+          </div>
+          <pre class="api-code"><code>const result = await fetch(
+  <span data-origin-code="/api/quotes?search=power&amp;limit=10">"/api/quotes?search=power&amp;limit=10"</span>
+);
+
+console.log(await result.json());
+{
+  "total": 184,
+  "limit": 10,
+  "data": [...]
+}</code></pre>
+        </article>
+
+        <article class="api-endpoint">
+          <div class="api-endpoint-copy">
+            <h1>Quote card</h1>
+            <div class="api-route"><span class="api-method">GET</span><a data-origin-href="/api/card">/api/card</a><button class="api-copy" data-copy="/api/card?index=42&amp;style=editorial">Copy</button></div>
+            <p>Returns a ready-to-embed SVG quote card in one of five visual styles.</p>
+            <h2>Query Parameters</h2>
+            <div class="api-params">
+              <div><strong>style</strong><span>string</span><p>editorial, cinema, polaroid, terminal, or gallery.</p></div>
+              <div><strong>format</strong><span>string</span><p>Use <code>json</code> to include SVG markup in JSON.</p></div>
+            </div>
+          </div>
+          <pre class="api-code"><code>const card = <span data-origin-code="/api/card?index=42&amp;style=gallery">"/api/card?index=42&amp;style=gallery"</span>;
+
+document.querySelector("img").src = card;
+
+// Returns: image/svg+xml</code></pre>
+        </article>
+
+        <article class="api-endpoint">
+          <div class="api-endpoint-copy">
+            <h1>Anime index</h1>
+            <div class="api-route"><span class="api-method">GET</span><a data-origin-href="/api/animes">/api/animes</a><button class="api-copy" data-copy="/api/animes">Copy</button></div>
+            <p>Returns every searchable anime title and the total number of titles in the index.</p>
+          </div>
+          <pre class="api-code"><code>const result = await fetch(
+  <span data-origin-code="/api/animes">"/api/animes"</span>
+);
+
+console.log(await result.json());
+{
+  "count": 1260,
+  "data": ["Naruto", "Bleach", ...]
+}</code></pre>
+        </article>
+      </div>
+    </main>
+    <div class="api-ad">Building something with Quotes CDN? <a href="mailto:hello@quotescdn.dev">Get in touch</a>.</div>
+    <footer class="api-footer">
+      <div><strong>Useful links</strong><a href="/">Home</a><a href="/api.html">API docs</a></div>
+      <div><strong>Support</strong><span>No key required.</span><span>Built for small, fast integrations.</span></div>
+      <div><strong>Get involved</strong><span>Use the API, make something fun, and share it.</span></div>
+      <small>© Quotes CDN 2026. All rights reserved.</small>
+    </footer>
+    <script>
+      const origin = window.location.origin;
+      document.querySelectorAll("[data-origin-href]").forEach((link) => {
+        link.href = origin + link.dataset.originHref;
+      });
+      document.querySelectorAll("[data-origin-code]").forEach((code) => {
+        code.textContent = `"${origin}${code.dataset.originCode}"`;
+      });
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          await navigator.clipboard.writeText(location.origin + button.dataset.copy);
+          const original = button.textContent;
+          button.textContent = "Copied";
+          setTimeout(() => button.textContent = original, 1300);
+        });
+      });
+    </script>
+  </body>
+</html>

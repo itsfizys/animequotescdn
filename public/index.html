@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Anime quotes with an API that gets out of your way." />
+    <title>Quotes CDN — English anime quotes</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="noise"></div>
+    <header class="site-header shell">
+      <a class="brand" href="/">QUOTES<span>//</span>CDN</a>
+      <nav class="nav">
+        <a href="#browse">Browse</a>
+        <a href="#card-lab">Card lab</a>
+        <a href="/api.html">API</a>
+      </nav>
+      <a class="header-button" href="/api.html">Read the docs <span>↗</span></a>
+    </header>
+
+    <main>
+      <section class="hero shell">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> 8,000+ English quotes / zero fluff</p>
+          <h1>Say it with<br /><span>anime.</span></h1>
+          <p class="hero-text">A loud, lightweight quote CDN for builders who want the line, the character, and the source without digging through a giant database.</p>
+          <div class="hero-actions">
+            <button class="button button-dark" id="random-button">Surprise me <span>↗</span></button>
+            <a class="text-link" href="#card-lab">Make a card <span>→</span></a>
+          </div>
+        </div>
+        <div class="hero-stamp" aria-label="English quotes only">
+          <div class="stamp-outer">
+            <div class="stamp-inner">
+              <span>ENGLISH</span>
+              <strong>QUOTE<br />INDEX</strong>
+              <span>EST. 2026</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Quotes CDN features">
+        <div class="ticker-track">NO KEY REQUIRED <span>✳</span> RANDOM OR FILTERED <span>✳</span> SVG CARDS DIRECTLY FROM THE API <span>✳</span> NO KEY REQUIRED <span>✳</span> RANDOM OR FILTERED <span>✳</span> SVG CARDS DIRECTLY FROM THE API <span>✳</span></div>
+      </section>
+
+      <section class="quote-section shell" id="browse">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / live sample</p>
+            <h2>Pick a line.<br />Make it yours.</h2>
+          </div>
+          <p class="section-note">Every quote gets a stable numeric index. Use it in your frontend, your bot, or a README that needs more personality.</p>
+        </div>
+        <div class="quote-layout">
+          <article class="quote-card" id="quote-card">
+            <div class="quote-card-top">
+              <span class="pill" id="quote-index">QUOTE 0000</span>
+              <span class="card-mark">✳</span>
+            </div>
+            <blockquote id="quote-text">Loading a quote...</blockquote>
+            <div class="quote-card-bottom">
+              <div>
+                <p class="quote-character" id="quote-character">—</p>
+                <p class="quote-anime" id="quote-anime">—</p>
+              </div>
+              <button class="icon-button" id="copy-button" title="Copy quote">⧉</button>
+            </div>
+          </article>
+          <aside class="quote-tools">
+            <form class="tool-box" id="quote-search-form">
+              <label for="search-input">Find a quote</label>
+              <div class="input-row">
+                <input id="search-input" type="search" placeholder="anime, character, phrase, or index" />
+                <button class="square-button" id="search-button" type="submit" aria-label="Find quote">→</button>
+              </div>
+              <p class="tool-hint" id="search-status" aria-live="polite">Try “Naruto”, “Spike”, a phrase, or 400.</p>
+            </form>
+            <div class="mini-stats">
+              <div><strong id="quote-count">8,000+</strong><span>quotes</span></div>
+              <div><strong id="anime-count">—</strong><span>anime titles</span></div>
+              <div><strong>4</strong><span>API routes</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="card-lab shell" id="card-lab">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">02 / card lab</p>
+            <h2>Turn a quote<br />into a signal.</h2>
+          </div>
+          <p class="section-note">The card endpoint returns a ready-to-embed SVG. Choose a layout, then copy a URL into your README, bot, or app.</p>
+        </div>
+        <div class="lab-layout">
+          <div class="card-preview-wrap">
+            <img id="card-preview" class="card-preview" alt="Generated anime quote card" />
+            <div class="preview-label">LIVE SVG / <span id="preview-style">EDITORIAL</span></div>
+          </div>
+          <div class="lab-controls">
+            <div class="card-source">
+              <label for="card-index-input">Load a quote by index</label>
+              <div class="card-index-row">
+                <input id="card-index-input" type="number" min="0" inputmode="numeric" value="0" aria-describedby="card-index-status" />
+                <button class="load-button" id="load-card-button">Load quote <span>↗</span></button>
+              </div>
+              <p class="card-index-status" id="card-index-status">Previewing quote 0.</p>
+            </div>
+            <button class="random-card-button" id="random-card-button">Use a random quote <span>↗</span></button>
+              <p class="control-label">Choose a card layout</p>
+            <div class="theme-list">
+              <button class="theme-button active" data-style="gallery"><span class="style-preview style-gallery"></span><span><strong>Gallery</strong><small>Centered art print</small></span></button>
+              <button class="theme-button" data-style="cinema"><span class="style-preview style-cinema"></span><span><strong>Cinema</strong><small>Dark frame, soft contrast</small></span></button>
+              <button class="theme-button" data-style="polaroid"><span class="style-preview style-polaroid"></span><span><strong>Polaroid</strong><small>Paper, serif, snapshot feel</small></span></button>
+              <button class="theme-button" data-style="terminal"><span class="style-preview style-terminal"></span><span><strong>Terminal</strong><small>Monospace command line</small></span></button>
+              <button class="theme-button" data-style="editorial"><span class="style-preview style-editorial"></span><span><strong>Editorial</strong><small>Quiet type, open space</small></span></button>
+            </div>
+            <div class="endpoint-box">
+              <span>YOUR CARD URL</span>
+              <code id="card-url">/api/card?index=0&amp;style=editorial</code>
+              <button id="copy-url">Copy URL <span>↗</span></button>
+            </div>
+            <a class="button button-lime" href="/api.html">See every endpoint <span>↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing shell">
+        <div class="closing-block">
+          <p class="eyebrow">03 / built for the internet</p>
+          <h2>Small API.<br /><span>Big mood.</span></h2>
+        </div>
+        <div class="closing-copy">
+          <p>Use JSON when you need data. Use SVG when you need something people will actually notice.</p>
+          <a class="button button-dark" href="/api.html">Open API docs <span>↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <span>QUOTES//CDN</span>
+      <span>English quote data / made for makers</span>
+      <a href="https://github.com/Decode84/Less-Real-Data" target="_blank" rel="noreferrer">Source data ↗</a>
+    </footer>
+    <script src="/app.js"></script>
+  </body>
+</html>

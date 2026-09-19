@@ -1,0 +1,13 @@
+{
+  "name": "animecdn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A neo-brutalist English anime quote CDN with JSON and SVG endpoints.",
+  "scripts": {
+    "start": "node server.js",
+    "import": "node scripts/import-data.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
