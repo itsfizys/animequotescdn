@@ -7,12 +7,17 @@ module.exports = async (req, res) => {
   if (!quote) {
     return res.status(404).json({ error: "No quote found" });
   }
-  const svg = quoteCardSvg(quote, req.query.style || req.query.theme || "editorial");
-  if (req.query.format === "json") {
+  const format = req.query.format;
+  const svg = quoteCardSvg(
+    quote,
+    req.query.style || req.query.theme || "editorial",
+    { embedFont: format === "png" },
+  );
+  if (format === "json") {
     return res.status(200).json({ ...quote, format: "svg", svg });
   }
 
-  if (req.query.format === "png") {
+  if (format === "png") {
     const png = await sharp(Buffer.from(svg)).png().toBuffer();
     res.setHeader("Content-Type", "image/png");
     res.setHeader("Cache-Control", "public, max-age=60, s-maxage=300");

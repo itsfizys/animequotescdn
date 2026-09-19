@@ -44,9 +44,14 @@ async function apiResponse(req, res, url) {
   if (url.pathname === "/api/card") {
     const quote = getQuote(Object.fromEntries(url.searchParams));
     if (!quote) return sendJson(res, 404, { error: "No quote found" });
-    const svg = quoteCardSvg(quote, url.searchParams.get("style") || url.searchParams.get("theme") || "editorial");
-    if (url.searchParams.get("format") === "json") return sendJson(res, 200, { ...quote, format: "svg", svg });
-    if (url.searchParams.get("format") === "png") {
+    const format = url.searchParams.get("format");
+    const svg = quoteCardSvg(
+      quote,
+      url.searchParams.get("style") || url.searchParams.get("theme") || "editorial",
+      { embedFont: format === "png" },
+    );
+    if (format === "json") return sendJson(res, 200, { ...quote, format: "svg", svg });
+    if (format === "png") {
       try {
         const png = await sharp(Buffer.from(svg)).png().toBuffer();
         res.writeHead(200, {
