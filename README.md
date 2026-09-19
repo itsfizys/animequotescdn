@@ -4,7 +4,7 @@
 
 Quotes CDN is a small, fast API for English anime quotes. It returns structured
 JSON for applications, searchable quote lists for integrations, and ready-to-
-embed SVG cards for websites, bots, documentation, and social posts.
+embed SVG or PNG cards for websites, bots, documentation, and social posts.
 
 The project includes a browser-based quote explorer, a card lab, API reference
 pages, Vercel serverless endpoints, and a local Node.js server for development.
@@ -245,7 +245,7 @@ Response:
 }
 ```
 
-### Generate an SVG quote card
+### Generate an SVG or PNG quote card
 
 ```http
 GET /api/card
@@ -256,6 +256,15 @@ The default response is an SVG image, so it can be embedded directly:
 ```md
 ![Anime quote](https://your-domain.example/api/card?index=42&style=editorial)
 ```
+
+Use `format=png` when you need a raster image, such as for Discord uploads:
+
+```bash
+curl "https://your-domain.example/api/card?index=42&style=editorial&format=png" \
+  -o anime-quote.png
+```
+
+The PNG response uses `Content-Type: image/png`.
 
 Card requests can use the same quote filters:
 
@@ -384,7 +393,7 @@ adding new material.
 quotescdn/
 ├── api/
 │   ├── animes.js       # Anime index endpoint
-│   ├── card.js         # SVG quote card endpoint
+│   ├── card.js         # SVG and PNG quote card endpoint
 │   ├── index.js        # API metadata endpoint
 │   ├── quote.js        # Single quote endpoint
 │   └── quotes.js       # Quote list endpoint

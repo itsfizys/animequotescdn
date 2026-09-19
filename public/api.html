@@ -64,18 +64,19 @@ console.log(await result.json());
           <div class="api-endpoint-copy">
             <h1>Quote card</h1>
             <div class="api-route"><span class="api-method">GET</span><a data-origin-href="/api/card">/api/card</a><button class="api-copy" data-copy="/api/card?index=42&amp;style=editorial">Copy</button></div>
-            <p>Returns a ready-to-embed SVG quote card in one of five visual styles.</p>
+            <p>Returns a ready-to-embed SVG or PNG quote card in one of five visual styles.</p>
             <h2>Query Parameters</h2>
             <div class="api-params">
               <div><strong>style</strong><span>string</span><p>editorial, cinema, polaroid, terminal, or gallery.</p></div>
-              <div><strong>format</strong><span>string</span><p>Use <code>json</code> to include SVG markup in JSON.</p></div>
+              <div><strong>format</strong><span>string</span><p>Use <code>png</code> for a PNG image or <code>json</code> to include SVG markup in JSON.</p></div>
             </div>
           </div>
           <pre class="api-code"><code>const card = <span data-origin-code="/api/card?index=42&amp;style=gallery">"/api/card?index=42&amp;style=gallery"</span>;
 
 document.querySelector("img").src = card;
 
-// Returns: image/svg+xml</code></pre>
+// Returns: image/svg+xml
+// Add &amp;format=png for image/png</code></pre>
         </article>
 
         <article class="api-endpoint">
