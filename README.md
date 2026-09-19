@@ -1,4 +1,4 @@
-# Quotes CDN
+# Anime Quotes CDN
 
 > English anime quotes, served with a little more attitude.
 
