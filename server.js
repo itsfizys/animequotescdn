@@ -4,6 +4,7 @@ const path = require("path");
 const { URL } = require("url");
 const { getQuote, listQuotes, index } = require("./lib/quotes");
 const { quoteCardSvg } = require("./lib/card");
+const sharp = require("sharp");
 
 const port = Number(process.env.PORT || 5000);
 const publicDir = path.join(__dirname, "public");
@@ -21,7 +22,7 @@ function sendJson(res, status, value) {
   res.end(JSON.stringify(value));
 }
 
-function apiResponse(req, res, url) {
+async function apiResponse(req, res, url) {
   if (url.pathname === "/api") {
     return sendJson(res, 200, {
       name: "quotescdn",
@@ -45,6 +46,19 @@ function apiResponse(req, res, url) {
     if (!quote) return sendJson(res, 404, { error: "No quote found" });
     const svg = quoteCardSvg(quote, url.searchParams.get("style") || url.searchParams.get("theme") || "editorial");
     if (url.searchParams.get("format") === "json") return sendJson(res, 200, { ...quote, format: "svg", svg });
+    if (url.searchParams.get("format") === "png") {
+      try {
+        const png = await sharp(Buffer.from(svg)).png().toBuffer();
+        res.writeHead(200, {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=60, s-maxage=300"
+        });
+        return res.end(png);
+      } catch (error) {
+        console.error("PNG card rendering failed:", error);
+        return sendJson(res, 500, { error: "Unable to render PNG card" });
+      }
+    }
     res.writeHead(200, { "Content-Type": "image/svg+xml; charset=utf-8" });
     return res.end(svg);
   }
